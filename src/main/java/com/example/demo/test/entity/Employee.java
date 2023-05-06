@@ -24,6 +24,20 @@ public class Employee {
     @Column(name = "password")
     private String password;
 
+    @Transient
+    private Login logInfo;
+
+ @Transient
+    private String msg;
+
+    public Login getLogInfo() {
+        return logInfo;
+    }
+
+    public void setLogInfo(Login logInfo) {
+        this.logInfo = logInfo;
+    }
+
     public long getId() {
         return id;
     }
@@ -64,6 +78,14 @@ public class Employee {
         this.password = password;
     }
 
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
     @Override
     public String toString() {
         return "Employee{" +
@@ -74,4 +96,6 @@ public class Employee {
                 ", password='" + password + '\'' +
                 '}';
     }
+
+
 }

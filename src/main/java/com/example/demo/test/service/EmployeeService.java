@@ -11,5 +11,5 @@ public interface EmployeeService {
 
     Employee findEmployee(String email);
 
-    Map<String,String> checkAuth(Employee employee);
+    Employee checkAuth(Employee employee);
 }

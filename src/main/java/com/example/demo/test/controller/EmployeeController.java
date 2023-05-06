@@ -37,7 +37,7 @@ public class EmployeeController {
     }
 
     @PostMapping("login")
-    public Map<String, String> loginEmployee(@RequestBody Employee employee) {
+    public Employee loginEmployee(@RequestBody Employee employee) {
         return employeeService.checkAuth(employee);
     }
 
