@@ -15,7 +15,6 @@ export class LoginComponent {
   employee?: Employee;
   loginForm : any = FormBuilder;
   constructor(private api: ApiService, private router: Router, private fb: FormBuilder) {
-    this.loginForm.value;
     const email = localStorage.getItem('email');
     if (email != null) {
       this.router.navigate(['/dashboard']);
@@ -34,12 +33,15 @@ export class LoginComponent {
   login() {
     const formValue = this.loginForm.value;
     this.employee = formValue;
+    debugger
     this.api.postRequest('login', this.employee).subscribe((res: any) => {
-      const msg = res.message;
+      debugger
+      const msg = res.msg;
       if (msg.match('email is not found')) {
         alert(msg);
       } else if (msg.match("Password is match")) {
         alert("login success");
+        localStorage.setItem('time', JSON.stringify(res.logInfo.loginTime));
         localStorage.setItem('email', JSON.stringify(this.employee?.email));
         this.router.navigate(['/dashboard']);
       } else if (msg.match('Password is not match')) {

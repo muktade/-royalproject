@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.Date;
 
-@Table(name="employees")
+@Table(name="login_info")
 @Entity
 @Data
 public class Login {

@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LoginRepository extends JpaRepository<Login, Long> {
 
-    Login findByEmployeeId(long employeeId);
+    Login findByEmployeeId(Long employeeId);
 }

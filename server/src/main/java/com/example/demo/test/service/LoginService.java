@@ -7,7 +7,7 @@ public interface LoginService {
 
     Login saveLogin(Login login);
 
-    Login getLoginInfo(long employeeId);
+    Login getLoginInfo(Long employeeId);
 
 
 

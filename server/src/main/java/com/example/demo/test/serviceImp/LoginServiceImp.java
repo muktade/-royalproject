@@ -20,7 +20,8 @@ public class LoginServiceImp implements LoginService {
     }
 
     @Override
-    public Login getLoginInfo(long employeeId) {
-        return loginRepository.findByEmployeeId(employeeId);
+    public Login getLoginInfo(Long employeeId) {
+        Login login = loginRepository.findByEmployeeId(employeeId);
+        return login;
     }
 }
