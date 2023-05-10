@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../service/api.service';
-import { Employee } from '../service/Employee';
+import { FormBuilder } from '@angular/forms';
+import { HttpClient, HttpRequest } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,11 +15,18 @@ export class DashboardComponent {
 
   time: any;
   lastLoginTime: any;
-  constructor(private api: ApiService, private router: Router) {
+
+  fileUploadForm: any = this.fb.group({
+    description: '',
+    file: ''
+  });
+
+  constructor(private api: ApiService, private router: Router, private fb: FormBuilder, private http: HttpClient) {
     this.time = this.timeStampToDate(new Date().getTime());
   }
 
   ngOnInit(): void {
+    this.loadAllFile();
     this.lastLoginTime = localStorage.getItem('time');
     if (this.lastLoginTime != 'null') {
       this.lastLoginTime = this.timeStampToDate(this.lastLoginTime);
@@ -30,6 +38,7 @@ export class DashboardComponent {
       this.getEmployeeDetails();
       this.router.navigate(['/dashboard']);
     } else {
+      alert("Sorry your are not aurthorized!\nLogin 1st...")
       this.router.navigate(['/login']);
     }
   }
@@ -45,6 +54,40 @@ export class DashboardComponent {
       debugger;
       this.employee = res[0];
     });
+  }
+
+  fileupload: any = [];
+
+  selectFile(event: any) {
+    this.fileupload = [];
+    this.fileupload.push(event.target.files[0]);
+  }
+  uploadFile() {
+    let formData: FormData = new FormData();
+    debugger
+    formData.append('description', this.fileUploadForm.value.description);
+    // formData.append('file', this.fileUploadForm.value.file);
+    this.fileupload.forEach((element: any) => {
+      formData.append('file', element);
+
+    });
+    this.api.postRequest("upload", formData).subscribe((res: any) => {
+      debugger
+      console.log(res);
+      alert(res.msg);
+
+    }, (err) => {
+      console.log(err);
+
+      alert('Sorry error happend: ' + err);
+    })
+  }
+
+  fileList: any;
+  loadAllFile() {
+    this.api.getRequest('all-file').subscribe(res => {
+      this.fileList = res;
+    })
   }
 
   empLogout() {

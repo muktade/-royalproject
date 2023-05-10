@@ -2,10 +2,15 @@ package com.example.demo.test.controller;
 
 
 import com.example.demo.test.entity.Employee;
+import com.example.demo.test.entity.FileUpload;
 import com.example.demo.test.service.EmployeeService;
+import com.example.demo.test.service.FileUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +23,8 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
+    @Autowired
+    private FileUploadService fileUploadService;
 
 
     @PostMapping("save")
@@ -49,4 +56,15 @@ public class EmployeeController {
         employees.add(emp);
         return employees;
     }
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "upload", method = RequestMethod.POST)
+    public @ResponseBody List<FileUpload> uploadFile(@ModelAttribute FileUpload fileUpload, @RequestParam(value ="file")MultipartFile file)throws Exception{
+        return fileUploadService.uploadFile(fileUpload, file);
+    }
+
+    @GetMapping("all-file")
+    public List<FileUpload> getAllFile(){
+        return fileUploadService.getAllFile();
+    }
+
 }

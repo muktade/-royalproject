@@ -4,8 +4,9 @@ package com.example.demo.test.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
-@Table(name="employees")
+@Table(name = "employees")
 @Entity
 @Data
 public class Employee {
@@ -18,16 +19,22 @@ public class Employee {
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
-    private String lastName;
+    private String loginName;
     @Column(name = "email", unique = true)
     private String email;
     @Column(name = "password")
     private String password;
 
+    @Column(name = "dob")
+    private Date dob;
+
+    @Column(name = "Address")
+    private String address;
+
     @Transient
     private Login logInfo;
 
- @Transient
+    @Transient
     private String msg;
 
     public Login getLogInfo() {
@@ -54,12 +61,12 @@ public class Employee {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLoginName() {
+        return loginName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLoginName(String lastName) {
+        this.loginName = lastName;
     }
 
     public String getEmail() {
@@ -86,12 +93,28 @@ public class Employee {
         this.msg = msg;
     }
 
+    public Date getDob() {
+        return dob;
+    }
+
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     @Override
     public String toString() {
         return "Employee{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", lastName='" + loginName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';
